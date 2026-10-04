@@ -6,6 +6,8 @@ blind room-acoustic-parameter estimation.**
 [![Dataset on HF](https://img.shields.io/badge/%F0%9F%A4%97%20dataset-audio--eval--suite-yellow)](https://huggingface.co/datasets/mandipgoswami/audio-eval-suite)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Data: CC-BY-4.0](https://img.shields.io/badge/data-CC--BY--4.0-blue.svg)](https://huggingface.co/datasets/mandipgoswami/audio-eval-suite)
+[![CI](https://github.com/mandip42/audio_eval_suite/actions/workflows/ci.yml/badge.svg)](https://github.com/mandip42/audio_eval_suite/actions/workflows/ci.yml)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mandip42/audio_eval_suite/blob/main/notebooks/quickstart.ipynb)
 
 This repo is the evaluation code for the
 [`mandipgoswami/audio-eval-suite`](https://huggingface.co/datasets/mandipgoswami/audio-eval-suite)
