@@ -1,0 +1,49 @@
+{
+  "dataset": "mandipgoswami/audio-eval-suite",
+  "baseline": "signal",
+  "n_rows_scored": 1500,
+  "task_A_reverb_classification": {
+    "metric": "top1_accuracy",
+    "label": "reverb_bin",
+    "accuracy_overall": 0.4,
+    "accuracy_by_condition": {
+      "clean": 0.4,
+      "reverb": 0.4,
+      "noisy_snr10": 0.4,
+      "noisy_snr5": 0.4,
+      "noisy_snr0": 0.4
+    },
+    "majority_bin": "mild"
+  },
+  "task_B_rt60_regression": {
+    "metric": "MAE_seconds",
+    "target": "t60_s",
+    "note": "clean condition excluded (anechoic by construction)",
+    "mae_overall": 3.8939045346920116,
+    "rmse_overall": 4.871986696093305,
+    "by_condition": {
+      "reverb": {
+        "mae": 4.143933459722671,
+        "rmse": 5.368439551728909,
+        "n": 300
+      },
+      "noisy_snr10": {
+        "mae": 4.052657800471543,
+        "rmse": 5.159325066970805,
+        "n": 300
+      },
+      "noisy_snr5": {
+        "mae": 3.863851884127398,
+        "rmse": 4.765920997650117,
+        "n": 300
+      },
+      "noisy_snr0": {
+        "mae": 3.5151749944464323,
+        "rmse": 4.097833103550922,
+        "n": 300
+      }
+    },
+    "n_scored": 1200,
+    "global_mean_t60_s": 1.8799630666666665
+  }
+}

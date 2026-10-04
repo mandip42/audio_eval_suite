@@ -1,0 +1,73 @@
+# ---------------------------------------------------------------------------
+# lm-evaluation-harness task template for audio-eval-suite
+# ---------------------------------------------------------------------------
+# This is a TEMPLATE you drop into your lm-eval harness `tasks/` directory
+# (e.g. lm_eval/tasks/audio_eval_suite/). It does NOT require the harness to be
+# installed to be a valid, useful artifact — it documents the dataset binding,
+# the two reference tasks, their splits, and their metrics in the harness task
+# style so an evaluation pipeline can pick them up directly.
+#
+# Two tasks are defined via a shared group:
+#   * audio_eval_suite_rt60       -> RT60 regression, metric: mae (lower better)
+#   * audio_eval_suite_reverbcls  -> reverb-level classification, metric: acc
+#
+# Audio harnesses vary in how they feed waveforms to a model; the `doc_to_audio`
+# / `audio_column` hints below point at the dataset's relative-path audio column.
+# Adjust `process_results` to your model's output shape.
+# ---------------------------------------------------------------------------
+
+group: audio_eval_suite
+dataset_path: mandipgoswami/audio-eval-suite
+dataset_name: default
+test_split: test
+output_type: generate_until   # audio->label/scalar; override per your harness
+
+task:
+  # -----------------------------------------------------------------------
+  - task: audio_eval_suite_rt60
+    tag:
+      - audio
+      - acoustics
+      - regression
+    dataset_path: mandipgoswami/audio-eval-suite
+    test_split: test
+    # audio is referenced by relative path; resolve against snapshot_download(repo)
+    audio_column: audio
+    doc_to_audio: "{{audio}}"
+    doc_to_target: "{{t60_s}}"
+    # exclude the anechoic 'clean' condition from RT60 scoring
+    process_docs: "lambda ds: ds.filter(lambda r: r['condition'] != 'clean')"
+    metric_list:
+      - metric: mae
+        aggregation: mean
+        higher_is_better: false
+      - metric: rmse
+        aggregation: mean
+        higher_is_better: false
+    metadata:
+      version: 1.0
+      target_units: seconds
+      reference_baseline_signal_mae: 3.8939
+      reference_baseline_mean_mae: 1.7629
+
+  # -----------------------------------------------------------------------
+  - task: audio_eval_suite_reverbcls
+    tag:
+      - audio
+      - acoustics
+      - classification
+    dataset_path: mandipgoswami/audio-eval-suite
+    test_split: test
+    audio_column: audio
+    doc_to_audio: "{{audio}}"
+    doc_to_choice: ["clean", "mild", "strong"]
+    doc_to_target: "{{reverb_bin}}"
+    metric_list:
+      - metric: acc
+        aggregation: mean
+        higher_is_better: true
+    metadata:
+      version: 1.0
+      label_column: reverb_bin
+      reference_baseline_signal_acc: 0.4000
+      reference_baseline_majority_acc: 0.5833

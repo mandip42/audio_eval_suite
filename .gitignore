@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets / tokens — never commit
+.env
+.env.*
+*.token
+hf_token*
+
+# HF cache / downloaded data
+.cache/
+~/.cache/huggingface/
+*.parquet
+*.wav
+
+# Eval outputs
+results/
+eval_output/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.ipynb_checkpoints/
